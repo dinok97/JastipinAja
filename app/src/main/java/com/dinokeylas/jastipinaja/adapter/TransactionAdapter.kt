@@ -1,6 +1,7 @@
 package com.dinokeylas.jastipinaja.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,13 +9,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.dinokeylas.jastipinaja.DetailTransactionActivity
 import com.dinokeylas.jastipinaja.R
+import com.dinokeylas.jastipinaja.model.Transaction
 import com.dinokeylas.jastipinaja.utils.DateUtils
 import com.dinokeylas.jastipinaja.utils.TransactionExample
 
 class TransactionAdapter(
     private val context: Context,
-    private val transactionList: ArrayList<TransactionExample>
+    private val transactionList: ArrayList<Transaction>
 ) :
     RecyclerView.Adapter<TransactionAdapter.ItemViewHolder>() {
 
@@ -29,11 +32,12 @@ class TransactionAdapter(
     override fun getItemCount(): Int = transactionList.size
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.tvDate.text = "Tanggal: " + DateUtils.getStringFormatedDate(transactionList[position].date)
-        holder.tvUserName.text = "User: " + transactionList[position].userId.trim()
-        holder.tvProductName.text = "Nama Produk: " +transactionList[position].itemName.trim()
+        holder.tvDate.text =
+            "Tanggal: " + DateUtils.getStringFormatedDate(transactionList[position].createAt)
+        holder.tvUserName.text = "User: " + transactionList[position].jastiper
+        holder.tvProductName.text = "Nama Produk: " + transactionList[position].post.product.name
         holder.tvTransactionType.text = "Jenis Transaksi: Titip Beli"
-        holder.tvTransactionProgress.text = "Progress: " + transactionList[position].transactionProgress.trim()
+        holder.tvTransactionProgress.text = "Progress: " + transactionList[position].progress
         holder.cardView.setOnClickListener(onClickListener(position))
     }
 
@@ -55,8 +59,13 @@ class TransactionAdapter(
         }
     }
 
-    private fun moveToTransactionDetail(transaction: TransactionExample){
-        Toast.makeText(context, transaction.itemName, Toast.LENGTH_SHORT).show()
+    private fun moveToTransactionDetail(transaction: Transaction) {
+        context.startActivity(
+            Intent(context, DetailTransactionActivity::class.java).putExtra(
+                DetailTransactionActivity.TRANSACTION_ID,
+                transaction.tranId
+            )
+        )
     }
 
 }

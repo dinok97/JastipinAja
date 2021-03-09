@@ -11,13 +11,13 @@
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/jastipin_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/jastipin_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <activity android:name=".PaymentActivity"></activity>
+        <activity android:name=".PaymentActivity"/>
         <activity android:name=".ProductBuyActivity" />
         <activity android:name=".PostAllActivity" />
         <activity android:name=".EditProfileActivity" />

@@ -4,7 +4,7 @@ import com.google.firebase.firestore.Exclude
 import java.util.*
 
 data class Transaction (
-    @get:Exclude val tranId: String = "",
+    @get:Exclude var tranId: String = "",
     val transactionType: Int = 0, // 1: beli produk, 2: bantu belikan
     val transactionMethod: Int = 0, // 1: in app, 2: cod
     val post: Post = Post(),

@@ -98,7 +98,8 @@ class DetailProductActivity : AppCompatActivity() {
                     }
 
                     override fun setOnCancelListener() {
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=${person.phoneNumber}&text=&source=&data=&app_absent=")))
+                        val message = "Hallo, saya ingin melakukan COD untuk barang: ${post.product.name}"
+                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=${person.phoneNumber}&text=${message}&source=&data=&app_absent=")))
                     }
 
                 })

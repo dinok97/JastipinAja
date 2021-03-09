@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.dinokeylas.jastipinaja.contract.ProfileContract
 import com.dinokeylas.jastipinaja.model.User
 import com.dinokeylas.jastipinaja.presenter.ProfilePresenter
@@ -49,7 +50,8 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         tv_phone_number.text = user?.phoneNumber
         tv_location.text = user?.address
         if (user?.profileImageUrl != "default profile image url") {
-            loadDataFromObjectStorage(user?.profileImageUrl)
+//            loadDataFromObjectStorage(user?.profileImageUrl)
+            Glide.with(this).load(user?.profileImageUrl).into(civ_profile_image)
         }
     }
 

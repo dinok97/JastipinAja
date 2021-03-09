@@ -101,7 +101,8 @@ class EditProfileActivity : AppCompatActivity() {
         if (user?.profileImageUrl != "default profile image url") {
             profileImageUrl = user?.profileImageUrl ?: "default profile image url"
             oldProfileImageUrl = user?.profileImageUrl ?: "default profile image url"
-            loadDataFromObjectStorage(profileImageUrl)
+//            loadDataFromObjectStorage(profileImageUrl)
+            Glide.with(this).load(user?.profileImageUrl).into(civ_edit_profile_image)
         }
     }
 

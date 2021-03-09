@@ -1,5 +1,6 @@
 package com.dinokeylas.jastipinaja
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +8,6 @@ import com.midtrans.sdk.corekit.callback.TransactionFinishedCallback
 import com.midtrans.sdk.corekit.core.MidtransSDK
 import com.midtrans.sdk.corekit.core.TransactionRequest
 import com.midtrans.sdk.corekit.core.themes.CustomColorTheme
-import com.midtrans.sdk.corekit.models.BillingAddress
 import com.midtrans.sdk.corekit.models.ItemDetails
 import com.midtrans.sdk.corekit.models.snap.CreditCard
 import com.midtrans.sdk.corekit.models.snap.CustomerDetails
@@ -47,25 +47,26 @@ class PaymentActivity : AppCompatActivity(), TransactionFinishedCallback {
         tvTotalTagihan?.text = "Total Tagihan ${totalTagihan}"
     }
 
-    private fun eventUI(){
+    private fun eventUI() {
         btnPay?.setOnClickListener {
             clickPay()
         }
     }
 
-    private fun makePayment(){
+    private fun makePayment() {
         SdkUIFlowBuilder.init()
             .setContext(this)
             .setMerchantBaseUrl(BuildConfig.BASE_URL)
             .setClientKey(BuildConfig.CLIENT_KEY)
             .setTransactionFinishedCallback(this)
             .enableLog(true)
-            .setColorTheme(CustomColorTheme("#777777","#f77474" , "#3f0d0d"))
+            .setColorTheme(CustomColorTheme("#777777", "#f77474", "#3f0d0d"))
             .buildSDK()
     }
 
-    private fun clickPay(){
-        MidtransSDK.getInstance().transactionRequest = transactionRequest("101", totalTagihan, 1, "susu")
+    private fun clickPay() {
+        MidtransSDK.getInstance().transactionRequest =
+            transactionRequest("101", totalTagihan, 1, "susu")
         MidtransSDK.getInstance().startPaymentUiFlow(this)
     }
 
@@ -101,11 +102,14 @@ class PaymentActivity : AppCompatActivity(), TransactionFinishedCallback {
     override fun onTransactionFinished(result: TransactionResult) {
         if (result.response != null) {
             when (result.status) {
-                TransactionResult.STATUS_SUCCESS -> Toast.makeText(
-                    this,
-                    "Transaction Sukses " + result.response.transactionId,
-                    Toast.LENGTH_LONG
-                ).show()
+                TransactionResult.STATUS_SUCCESS -> {
+                    Toast.makeText(
+                        this,
+                        "Transaction Sukses " + result.response.transactionId,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    startActivity(Intent(this, HomeActivity::class.java))
+                }
                 TransactionResult.STATUS_PENDING -> Toast.makeText(
                     this,
                     "Transaction Pending " + result.response.transactionId,
